@@ -37,7 +37,6 @@
 #include "leveldb/write_batch.h"
 #include "leveldb/cache.h"
 #include "leveldb/filter_policy.h"
-#include "leveldb/perf_count.h"
 
 #ifndef INCL_THREADING_H
     #include "threading.h"
@@ -295,12 +294,10 @@ private:
              // to address race condition, thread might be waiting now
              FindWaitingThread(NULL);
 
-             perf()->Inc(leveldb::ePerfElevelQueued);
              ret_flag=true;
          }   // if
          else
          {
-             perf()->Inc(leveldb::ePerfElevelDirect);
              ret_flag=true;
          }   // else
      }   // if
@@ -332,7 +329,6 @@ private:
 
  size_t work_queue_size() const { return work_queue.size(); }
  bool shutdown_pending() const  { return shutdown; }
- leveldb::PerformanceCounters * perf() const {return(leveldb::gPerfCounters);};
 
 
  private:
@@ -527,7 +523,6 @@ void *eleveldb_write_thread_worker(void *args)
                     submission=h.work_queue.front();
                     h.work_queue.pop_front();
                     eleveldb::dec_and_fetch(&h.work_queue_atomic);
-                    h.perf()->Inc(leveldb::ePerfElevelDequeued);
                 }   // if
 
                 h.unlock();
@@ -644,7 +639,6 @@ ERL_NIF_TERM parse_open_option(ErlNifEnv* env, ERL_NIF_TERM item, leveldb::Optio
             unsigned long bfsize = 16;
             if (option[1] == eleveldb::ATOM_TRUE || enif_get_ulong(env, option[1], &bfsize))
             {
-                opts.filter_policy = leveldb::NewBloomFilterPolicy2(bfsize);
             }
         }
     }

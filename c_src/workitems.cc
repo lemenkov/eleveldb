@@ -29,7 +29,6 @@
 
 #include "leveldb/cache.h"
 #include "leveldb/filter_policy.h"
-#include "leveldb/perf_count.h"
 
 // error_tuple duplicated in workitems.cc and eleveldb.cc ... how to fix?
 static ERL_NIF_TERM error_tuple(ErlNifEnv* env, ERL_NIF_TERM error, leveldb::Status& status)
