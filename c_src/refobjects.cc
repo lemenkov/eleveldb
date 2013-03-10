@@ -44,13 +44,11 @@ namespace eleveldb {
 RefObject::RefObject()
     : m_RefCount(0)
 {
-        leveldb::gPerfCounters->Inc(leveldb::ePerfElevelRefCreate);
 }   // RefObject::RefObject
 
 
 RefObject::~RefObject()
 {
-    leveldb::gPerfCounters->Inc(leveldb::ePerfElevelRefDelete);
 }   // RefObject::~RefObject
 
 
