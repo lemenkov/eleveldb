@@ -605,8 +605,6 @@ ERL_NIF_TERM parse_open_option(ErlNifEnv* env, ERL_NIF_TERM item, leveldb::Optio
             opts.error_if_exists = (option[1] == eleveldb::ATOM_TRUE);
         else if (option[0] == eleveldb::ATOM_PARANOID_CHECKS)
             opts.paranoid_checks = (option[1] == eleveldb::ATOM_TRUE);
-        else if (option[0] == eleveldb::ATOM_VERIFY_COMPACTIONS)
-            opts.verify_compactions = (option[1] == eleveldb::ATOM_TRUE);
         else if (option[0] == eleveldb::ATOM_MAX_OPEN_FILES)
         {
             int max_open_files;
