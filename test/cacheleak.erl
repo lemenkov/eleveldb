@@ -25,7 +25,7 @@
 
 -include_lib("eunit/include/eunit.hrl").
 
-cacheleak_test_() ->
+cacheleak_test_DISABLE() ->
     {timeout, 10*60, fun() ->
                               [] = os:cmd("rm -rf /tmp/eleveldb.cacheleak.test"),
                               Blobs = [{<<I:128/unsigned>>, compressible_bytes(10240)} ||
